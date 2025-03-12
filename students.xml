@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+    <student>
+        <name>John Doe</name>
+        <hall_ticket_number>HT12345</hall_ticket_number>
+        <age>20</age>
+        <course>Physics</course>
+    </student>
+    <student>
+        <name>Jane Smith</name>
+        <hall_ticket_number>HT12346</hall_ticket_number>
+        <age>21</age>
+        <course>Chemistry</course>
+    </student>
+    <student>
+        <name>Michael Johnson</name>
+        <hall_ticket_number>HT12347</hall_ticket_number>
+        <age>22</age>
+        <course>Mathematics</course>
+    </student>
+    <!-- Repeat for all 20 students -->
+    <student>
+        <name>kundan</name>
+        <hall_ticket_number>574</hall_ticket_number>
+        <age>23</age>
+        <course>Biology</course>
+    </student>
+    <student>
+        <name>vishnu</name>
+        <hall_ticket_number>575</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>abhi</name>
+        <hall_ticket_number>576</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>shiva</name>
+        <hall_ticket_number>577</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>jai</name>
+        <hall_ticket_number>578</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>sai</name>
+        <hall_ticket_number>579</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>cherry</name>
+        <hall_ticket_number>581</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>vamshi</name>
+        <hall_ticket_number>580</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>vikey</name>
+        <hall_ticket_number>582</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>bharath</name>
+        <hall_ticket_number>583</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>rakesh</name>
+        <hall_ticket_number>584</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>majnu</name>
+        <hall_ticket_number>585</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    version<student>
+        <name>kumar</name>
+        <hall_ticket_number>586</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>dileep</name>
+        <hall_ticket_number>587</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>karthik</name>
+        <hall_ticket_number>588</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>anand</name>
+        <hall_ticket_number>589</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <student>
+        <name>don</name>
+        <hall_ticket_number>590</hall_ticket_number>
+        <age>24</age>
+        <course>Computer Science</course>
+    </student>
+    <!-- Add remaining students here -->
+</students>

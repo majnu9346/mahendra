@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Student by Hall Ticket Number</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        #noResults {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Search Student by Hall Ticket Number</h1>
+
+<div class="search-container">
+    <input type="text" id="hallTicketSearch" placeholder="Enter Hall Ticket Number" />
+    <button onclick="searchStudent()">Search</button>
+</div>
+
+<p id="noResults">No student found with the given Hall Ticket Number.</p>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Hall Ticket Number</th>
+            <th>Age</th>
+            <th>Course</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    let studentsData = [];
+
+    // Load the XML file
+    fetch('students.xml')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, "application/xml");
+
+            const students = xmlDoc.getElementsByTagName("student");
+
+            Array.from(students).forEach(student => {
+                const name = student.getElementsByTagName("name")[0].textContent;
+                const hallTicketNumber = student.getElementsByTagName("hall_ticket_number")[0].textContent;
+                const age = student.getElementsByTagName("age")[0].textContent;
+                const course = student.getElementsByTagName("course")[0].textContent;
+
+                studentsData.push({
+                    name,
+                    hallTicketNumber,
+                    age,
+                    course
+                });
+            });
+
+            // Display all students initially
+            displayStudents(studentsData);
+        })
+        .catch(err => console.log('Error loading XML file:', err));
+
+    // Function to display students in the table
+    function displayStudents(students) {
+        const tableBody = document.querySelector("#studentTable tbody");
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        students.forEach(student => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.hallTicketNumber}</td>
+                <td>${student.age}</td>
+                <td>${student.course}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+
+        // Hide the "No results" message if there are results
+        document.getElementById("noResults").style.display = students.length === 0 ? "block" : "none";
+    }
+
+    // Search for a student by Hall Ticket Number
+    function searchStudent() {
+        const searchTerm = document.getElementById('hallTicketSearch').value.trim().toUpperCase();
+
+        if (searchTerm === "") {
+            // If search field is empty, show all students
+            displayStudents(studentsData);
+        } else {
+            // Filter the students based on Hall Ticket Number
+            const filteredStudents = studentsData.filter(student =>
+                student.hallTicketNumber.toUpperCase().includes(searchTerm)
+            );
+            displayStudents(filteredStudents);
+        }
+    }
+</script>
+
+</body>
+</html>

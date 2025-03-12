@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Models</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #iphone-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .iphone {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 200px;
+        }
+        .iphone img {
+            width: 100%;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .iphone h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .iphone p {
+            font-size: 14px;
+        }
+        .iphone .price {
+            color: green;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        .buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available iPhones</h1><hr>
+    <div id="iphone-list"></div>
+
+    <script>
+        // Fetch the JSON file containing iPhone data
+        fetch('iphones.json')
+            .then(response => response.json())
+            .then(data => {
+                let iphoneList = document.getElementById('iphone-list');
+                data.forEach(iphone => {
+                    // Create the HTML structure for each iPhone
+                    let iphoneDiv = document.createElement('div');
+                    iphoneDiv.classList.add('iphone');
+
+                    iphoneDiv.innerHTML = `
+                        <img src="${iphone.image}" alt="${iphone.name}">
+                        <h3>${iphone.name}</h3>
+                        <p>Model: ${iphone.model}</p>
+                        <p>${iphone.description}</p>
+                        <p class="price">${iphone.price}</p>
+                        <div class="buttons">
+                            <button onclick="buyNow('${iphone.name}')">Buy Now</button>
+                            <button onclick="addToCart('${iphone.name}')">Add to Cart</button>
+                        </div>
+                    `;
+
+                    // Append the created div to the iphone-list container
+                    iphoneList.appendChild(iphoneDiv);
+                });
+            })
+            .catch(error => {
+                console.error("Error loading the iPhone data", error);
+            });
+
+        // Cart array to store the selected phones
+        let cart = [];
+
+        // Function to handle "Buy Now" action
+        function buyNow(iphoneName) {
+            alert(`You have purchased the ${iphoneName}.`);
+            // Here you could implement redirection to a checkout page or similar.
+        }
+
+        // Function to handle "Add to Cart" action
+        function addToCart(iphoneName) {
+            cart.push(iphoneName);
+            alert(`${iphoneName} has been added to your cart.`);
+            console.log(cart); // You can later display cart items in a cart page or modal
+        }
+    </script>
+</body>
+</html>
