@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List with Firebase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff4c4c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>To-Do List with Firebase</h1>
+
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add Task</button>
+
+    <ul id="todoList"></ul>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration (replace with your Firebase config)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Reference to 'tasks' node in Firebase Realtime Database
+        const tasksRef = db.ref('tasks');
+
+        // Function to add a task
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const task = taskInput.value.trim();
+
+            if (task !== '') {
+                const newTaskRef = tasksRef.push();
+                newTaskRef.set({
+                    task: task
+                });
+                taskInput.value = ''; // Clear input field
+            }
+        }
+
+        // Function to remove a task
+        function removeTask(taskId) {
+            tasksRef.child(taskId).remove();
+        }
+
+        // Function to render the task list from Firebase
+        function renderList() {
+            const ul = document.getElementById('todoList');
+            ul.innerHTML = ''; // Clear the existing list
+
+            tasksRef.on('child_added', function(snapshot) {
+                const task = snapshot.val();
+                const li = document.createElement('li');
+                li.textContent = task.task;
+
+                // Create a remove button
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = function() {
+                    removeTask(snapshot.key); // Remove task by its key
+                };
+
+                li.appendChild(removeButton); // Add remove button to the list item
+                ul.appendChild(li); // Add list item to the unordered list
+            });
+
+            tasksRef.on('child_removed', function(snapshot) {
+                renderList(); // Re-render the list when a task is removed
+            });
+        }
+
+        // Initial render of the list when the page loads
+        renderList();
+    </script>
+
+</body>
+</html>
